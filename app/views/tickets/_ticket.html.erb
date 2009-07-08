@@ -1,10 +1,10 @@
 <tr class="<%= cycle('odd', 'even') -%> <%= html_classes_for_ticket(ticket) %>">
   <td class="ticket-col-id">
-    <%= link_to h("##{ticket.id}"), project_ticket_path(Project.current, ticket) %><br/>
+    <%= link_to h("##{ticket.id}"), project_ticket_path(ticket.project_id, ticket) %><br/>
     <%= subscription_icon(ticket) %>    
   </td>
   <td class="ticket-col-status" title="<%=h ticket.status.name %>">
-    <%= link_to h(truncate(ticket.status.name)), project_ticket_path(Project.current, ticket) %><br/>
+    <%= link_to h(truncate(ticket.status.name)), project_ticket_path(ticket.project_id, ticket) %><br/>
     <%= image_tag "#{ticket.status.state.type}_#{ticket.status.statement.type}.png", :alt => _(ticket.status.state.group), :title => _(ticket.status.state.group) %>
   </td>
   <td class="ticket-col-summary" title="<%=h truncate(ticket.content.to_s.squish, :length => 600) %>">
@@ -12,7 +12,7 @@
       <%= author_gravatar(ticket.user, ticket.author, :email => ticket.email, :size => 30) %>
     </div>
     <div class="prepend-1">
-      <h6><%= link_to h(truncate(ticket.summary, :length => 50)), project_ticket_path(Project.current, ticket) %></h6>
+      <h6><%= link_to h(truncate(ticket.summary, :length => 50)), project_ticket_path((cur_project.nil? ? Project.current : cur_project), ticket) %></h6>
       <span class="small quieter"><%=_ 'Created {{period}} ago by {{author}}', :period => time_ago_in_words(ticket.created_at), :author => truncate(ticket.author) %></span>
     </div>
   </td>

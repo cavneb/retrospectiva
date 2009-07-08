@@ -1,0 +1,32 @@
+<% @page_title = _('My Tickets') -%>
+<% slim_page -%>
+<% auto_discover_feed -%>
+<%= page_title %>
+
+<% if @projects.blank? -%>
+  <h2><%=_ 'No projects available' -%></h2>
+<% else -%>
+  <% @projects.each do |project| %>
+    <div class="project">
+      <h2><%= link_to h(project.name), project_path(project) -%></h2>
+      <table class="record-list" summary="<%=_ 'Tickets' %>">
+        <thead>
+          <tr>
+            <th><%= _('ID') %></th>
+            <th><%= _('Status') %></th>
+            <th><%= _('Summary') %></th>
+            <th><%= _('Assigned To') %></th>
+            <th><%= _('Priority') %></th>
+            <th><%= _('Milestone') %></th>
+            <th><%= _('Last Update') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% project.tickets.each do |ticket| %>
+            <%= render :partial => "/tickets/ticket", :locals => { :ticket => ticket, :cur_project => project, :property_types => [] } %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end -%>
+<% end -%>

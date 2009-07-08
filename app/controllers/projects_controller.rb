@@ -28,7 +28,11 @@ class ProjectsController < ApplicationController
       format.xml  { render :xml => @project }
     end
   end
-  
+
+  def tickets
+    @tickets = User.current.tickets
+  end
+
   protected
 
     def find_projects

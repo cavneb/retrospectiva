@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     def per_page
       10
     end
-    
+
     protected
       
       def secure_auth?

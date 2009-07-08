@@ -17,7 +17,8 @@ ActionController::Routing::Routes.draw do |map|
   def pt_member_methods
     { :modify_summary => :put, :modify_content => :put, :modify_change_content => :put, :toggle_subscription => :post }
   end
-  
+
+  map.projects_tickets '/projects/tickets', :controller => "projects", :action => "tickets"
   map.resources :projects do |project|
     project.filter 'central_project'
 

@@ -7,7 +7,11 @@ module NavigationHelper
   def base_navigation
     links = []
     if User.current.active_projects.size > 1 || true
-      klass = controller.is_a?(ProjectsController) ? 'active' : nil
+      klass = (controller.is_a?(ProjectsController) && (controller.action_name == "tickets")) ? 'active' : nil
+      links << link_to(_('All Tickets'), projects_tickets_path, :class => klass)
+    end
+    if User.current.active_projects.size > 1 || true
+      klass = (controller.is_a?(ProjectsController) && (controller.action_name != "tickets")) ? 'active' : nil
       links << link_to(_('Projects'), projects_path, :class => klass)
     end
     if User.current.admin?
